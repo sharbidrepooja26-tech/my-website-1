@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield — Cybersecurity Guidance</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0f;
+    --bg2: #0a1628;
+    --green: #00ff88;
+    --cyan: #00d4ff;
+    --red: #ff3c5a;
+    --amber: #ffb800;
+    --text: #c8d8e8;
+    --muted: #5a7a9a;
+    --card: #0d1f35;
+    --border: #1a3050;
+    --mono: 'Share Tech Mono', monospace;
+    --head: 'Rajdhani', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    background: rgba(5,10,15,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--green);
+    letter-spacing: 2px;
+  }
+
+  .logo span { color: var(--cyan); }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+  }
+
+  nav ul a {
+    font-family: var(--head);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 40px;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    animation: pulse-border 2s infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(0,255,136,0); }
+  }
+
+  .hero h1 {
+    font-family: var(--head);
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 .line1 { color: #fff; }
+  .hero h1 .line2 { color: var(--green); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 20px auto 40px;
+    line-height: 1.7;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: var(--green);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #00cc6e;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(0,212,255,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* STATS */
+  .stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-item {
+    background: var(--bg2);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 36px;
+    color: var(--green);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: var(--head);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-title span { color: var(--green); }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  /* THREAT CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .threat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .threat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .threat-card:hover::before { transform: scaleX(1); }
+  .threat-card:hover { border-color: rgba(0,255,136,0.3); transform: translateY(-4px); }
+
+  .threat-card.red::before { background: var(--red); }
+  .threat-card.red:hover { border-color: rgba(255,60,90,0.3); }
+
+  .threat-card.amber::before { background: var(--amber); }
+  .threat-card.amber:hover { border-color: rgba(255,184,0,0.3); }
+
+  .threat-card.cyan::before { background: var(--cyan); }
+  .threat-card.cyan:hover { border-color: rgba(0,212,255,0.3); }
+
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-family: var(--head);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  .tag-red { background: rgba(255,60,90,0.15); color: var(--red); }
+  .tag-amber { background: rgba(255,184,0,0.15); color: var(--amber); }
+  .tag-green { background: rgba(0,255,136,0.15); color: var(--green); }
+  .tag-cyan { background: rgba(0,212,255,0.15); color: var(--cyan); }
+
+  /* TIPS SECTION */
+  .tips-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .tips-wrap { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    section { padding: 60px 20px; }
+  }
+
+  .tip-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .tip-item:hover { border-color: var(--green); }
+
+  .tip-num {
+    font-family: var(--mono);
+    font-size: 24px;
+    color: var(--green);
+    opacity: 0.4;
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .tip-content h4 {
+    font-family: var(--head);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .tip-content p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PASSWORD CHECKER */
+  .tool-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+  }
+
+  .tool-box h3 {
+    font-family: var(--head);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tool-box p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .pw-input-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .pw-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 16px;
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .pw-input:focus { border-color: var(--green); }
+
+  .strength-bar-wrap {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.4s, background 0.4s;
+  }
+
+  .strength-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .criteria-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .crit {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .crit.pass { color: var(--green); }
+  .crit-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+  .crit.pass .crit-dot { background: var(--green); }
+
+  /* QUIZ */
+  .quiz-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    margin-top: 16px;
+  }
+
+  .quiz-q {
+    font-family: var(--head);
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .quiz-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-opt {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: var(--body);
+  }
+
+  .quiz-opt:hover { border-color: var(--cyan); color: #fff; }
+  .quiz-opt.correct { border-color: var(--green); color: var(--green); background: rgba(0,255,136,0.05); }
+  .quiz-opt.wrong { border-color: var(--red); color: var(--red); background: rgba(255,60,90,0.05); }
+
+  .quiz-feedback {
+    font-family: var(--mono);
+    font-size: 13px;
+    min-height: 20px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-score {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .footer-text a { color: var(--cyan); text-decoration: none; }
+
+  /* Animate on scroll */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Scanline effect on hero */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">CYBER<span>SHIELD</span></div>
+  <ul>
+    <li><a href="#threats">Threats</a></li>
+    <li><a href="#tips">Stay Safe</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-badge">// CYBERSECURITY AWARENESS GUIDE //</div>
+    <h1>
+      <div class="line1">PROTECT YOUR</div>
+      <div class="line2">DIGITAL LIFE</div>
+    </h1>
+    <p class="hero-sub">Every 39 seconds, a cyberattack happens somewhere in the world. Learn how to stay safe, secure, and one step ahead of hackers.</p>
+    <div class="hero-btns">
+      <a href="#threats" class="btn-primary">Explore Threats</a>
+      <a href="#quiz" class="btn-outline">Test Yourself</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">39s</span>
+    <span class="stat-label">Cyberattack every 39 seconds</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">$8T</span>
+    <span class="stat-label">Global cybercrime cost in 2023</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">95%</span>
+    <span class="stat-label">Breaches caused by human error</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">3.5M</span>
+    <span class="stat-label">Cybersecurity jobs unfilled globally</span>
+  </div>
+</div>
+
+<!-- THREATS -->
+<section id="threats">
+  <span class="section-tag">// 01 — Know Your Enemy</span>
+  <h2 class="section-title">Common <span>Cyber Threats</span></h2>
+  <p class="section-desc">Understanding what attackers use is the first step to defending yourself. Here are the most common threats you need to know.</p>
+
+  <div class="cards-grid">
+    <div class="threat-card red fade-up">
+      <div class="card-icon">🎣</div>
+      <div class="card-title">Phishing</div>
+      <div class="card-desc">Fake emails or websites that trick you into giving your password, OTP, or bank details. Most common attack method worldwide.</div>
+      <span class="card-tag tag-red">HIGH RISK</span>
+    </div>
+    <div class="threat-card red fade-up">
+      <div class="card-icon">🦠</div>
+      <div class="card-title">Malware</div>
+      <div class="card-desc">Malicious software — viruses, trojans, spyware — that secretly installs on your device and steals data or damages files.</div>
+      <span class="card-tag tag-red">HIGH RISK</span>
+    </div>
+    <div class="threat-card amber fade-up">
+      <div class="card-icon">🔐</div>
+      <div class="card-title">Ransomware</div>
+      <div class="card-desc">Hackers lock your files and demand money (ransom) to unlock them. Has crippled hospitals, banks, and governments worldwide.</div>
+      <span class="card-tag tag-amber">CRITICAL</span>
+    </div>
+    <div class="threat-card amber fade-up">
+      <div class="card-icon">👤</div>
+      <div class="card-title">Social Engineering</div>
+      <div class="card-desc">Manipulating people psychologically — pretending to be IT support, a friend, or bank staff — to get sensitive information.</div>
+      <span class="card-tag tag-amber">MEDIUM RISK</span>
+    </div>
+    <div class="threat-card cyan fade-up">
+      <div class="card-icon">📡</div>
+      <div class="card-title">Man-in-the-Middle</div>
+      <div class="card-desc">Attacker secretly intercepts communication between two parties — like reading your messages or stealing login sessions on public WiFi.</div>
+      <span class="card-tag tag-cyan">TECHNICAL</span>
+    </div>
+    <div class="threat-card fade-up">
+      <div class="card-icon">💉</div>
+      <div class="card-title">SQL Injection</div>
+      <div class="card-desc">Hackers inject malicious code into website forms to access, modify, or delete entire databases. A major web vulnerability.</div>
+      <span class="card-tag tag-green">DEV RISK</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips" style="background: var(--bg2); max-width: 100%; padding: 80px 40px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <span class="section-tag">// 02 — Stay Safe</span>
+    <h2 class="section-title">10 Rules to <span>Protect Yourself</span></h2>
+    <p class="section-desc">Simple habits that make you 90% harder to hack. Follow these and you are already safer than most people online.</p>
+
+    <div class="tips-wrap">
+      <div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">01</span>
+          <div class="tip-content">
+            <h4>Use Strong Passwords</h4>
+            <p>Minimum 12 characters. Mix uppercase, numbers, symbols. Never use your name or birthday.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">02</span>
+          <div class="tip-content">
+            <h4>Enable 2FA Everywhere</h4>
+            <p>Two-Factor Authentication adds a second lock. Even if your password leaks, hackers can't get in.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">03</span>
+          <div class="tip-content">
+            <h4>Never Click Unknown Links</h4>
+            <p>Hover over links to check the real URL. If it looks suspicious — delete it. Banks never ask for OTP over email.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">04</span>
+          <div class="tip-content">
+            <h4>Keep Software Updated</h4>
+            <p>Updates patch security vulnerabilities. Outdated apps are easy targets for hackers.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">05</span>
+          <div class="tip-content">
+            <h4>Use a VPN on Public WiFi</h4>
+            <p>Public networks are dangerous. VPN encrypts your traffic so no one can intercept it.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">06</span>
+          <div class="tip-content">
+            <h4>Back Up Your Data</h4>
+            <p>Use 3-2-1 rule: 3 copies, 2 different formats, 1 offsite/cloud. Ransomware can't hurt you if you have backups.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">07</span>
+          <div class="tip-content">
+            <h4>Use a Password Manager</h4>
+            <p>Tools like Bitwarden or LastPass generate and store complex passwords so you don't have to remember them.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">08</span>
+          <div class="tip-content">
+            <h4>Check HTTPS on Websites</h4>
+            <p>Always look for the padlock icon before entering any personal or payment information online.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">09</span>
+          <div class="tip-content">
+            <h4>Limit Social Media Info</h4>
+            <p>Hackers use your public birthday, city, and school to guess passwords or answer security questions.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-up">
+          <span class="tip-num">10</span>
+          <div class="tip-content">
+            <h4>Report Suspicious Activity</h4>
+            <p>In India, report cybercrime at cybercrime.gov.in or call 1930. Early reporting helps stop further damage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <span class="section-tag">// 03 — Interactive Tools</span>
+  <h2 class="section-title">Test Your <span>Password Strength</span></h2>
+  <p class="section-desc">Type a password below to check how strong it is. Your password is never stored or sent anywhere.</p>
+
+  <div class="tool-box fade-up" style="max-width: 560px;">
+    <h3>Password Checker</h3>
+    <p>Type any password to instantly analyse its strength</p>
+    <div class="pw-input-wrap">
+      <input type="text" class="pw-input" id="pwInput" placeholder="Type a password..." oninput="checkPassword(this.value)" autocomplete="off">
+    </div>
+    <div class="strength-bar-wrap">
+      <div class="strength-bar" id="strengthBar"></div>
+    </div>
+    <div class="strength-label" id="strengthLabel">Start typing...</div>
+    <div class="criteria-list" id="criteriaList">
+      <div class="crit" id="c-len"><span class="crit-dot"></span>At least 12 characters</div>
+      <div class="crit" id="c-upper"><span class="crit-dot"></span>Contains uppercase letter</div>
+      <div class="crit" id="c-lower"><span class="crit-dot"></span>Contains lowercase letter</div>
+      <div class="crit" id="c-num"><span class="crit-dot"></span>Contains a number</div>
+      <div class="crit" id="c-sym"><span class="crit-dot"></span>Contains special character (!@#$...)</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" style="background: var(--bg2); max-width: 100%; padding: 80px 40px;">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <span class="section-tag">// 04 — Test Yourself</span>
+    <h2 class="section-title">Cyber <span>Safety Quiz</span></h2>
+    <p class="section-desc">5 quick questions. See how cyber-aware you really are!</p>
+
+    <div class="quiz-box fade-up">
+      <span class="quiz-num" id="qNum">Question 1 of 5</span>
+      <div class="quiz-q" id="qText"></div>
+      <div class="quiz-options" id="qOptions"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-score" id="qScore"></div>
+      <button class="btn-primary" id="qNext" onclick="nextQuestion()" style="display:none; margin-top:8px;">Next Question →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CYBER<span style="color:var(--cyan)">SHIELD</span></div>
+  <p class="footer-text">
+    Built with HTML & CSS for cybersecurity awareness.<br>
+    Report cybercrime in India: <a href="#">cybercrime.gov.in</a> | Helpline: <a href="#">1930</a>
+  </p>
+  <p style="font-family: var(--mono); font-size: 11px; color: var(--border); margin-top: 20px;">// STAY SAFE. STAY AWARE. //</p>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Password checker
+  function checkPassword(pw) {
+    const len = pw.length >= 12;
+    const upper = /[A-Z]/.test(pw);
+    const lower = /[a-z]/.test(pw);
+    const num = /[0-9]/.test(pw);
+    const sym = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pw);
+    const score = [len,upper,lower,num,sym].filter(Boolean).length;
+
+    const toggle = (id, pass) => {
+      const el = document.getElementById(id);
+      el.classList.toggle('pass', pass);
+    };
+    toggle('c-len', len); toggle('c-upper', upper);
+    toggle('c-lower', lower); toggle('c-num', num); toggle('c-sym', sym);
+
+    const bar = document.getElementById('strengthBar');
+    const label = document.getElementById('strengthLabel');
+    const colors = ['','#ff3c5a','#ff3c5a','#ffb800','#ffb800','#00ff88'];
+    const labels = ['','Very Weak','Weak','Fair','Strong','Very Strong ✓'];
+    bar.style.width = (pw.length === 0 ? 0 : (score/5)*100) + '%';
+    bar.style.background = colors[score] || '#ff3c5a';
+    label.style.color = colors[score] || 'var(--muted)';
+    label.textContent = pw.length === 0 ? 'Start typing...' : labels[score];
+  }
+
+  // Quiz
+  const questions = [
+    { q: "You receive an email from 'support@amaz0n-helpdesk.com' asking for your password. What do you do?", opts: ["Reply with your password","Click the link to verify","Delete it — it's a phishing scam","Forward it to friends"], ans: 2, exp: "Correct! Legitimate companies NEVER ask for your password via email. The fake domain 'amaz0n' is a classic phishing trick." },
+    { q: "Which of these is the STRONGEST password?", opts: ["password123","Riya@1998","T!g3r#Moon$Fire99","ILOVECRICKET"], ans: 2, exp: "Correct! It has uppercase, lowercase, numbers, symbols, and is over 12 characters — all 5 strength criteria met!" },
+    { q: "You're at a cafe using public WiFi. What's the SAFEST thing to do?", opts: ["Login to your bank account","Use a VPN before doing anything sensitive","Share your WiFi password with others","Download apps freely"], ans: 1, exp: "Right! Public WiFi is easily intercepted. A VPN encrypts your connection and keeps you protected." },
+    { q: "What does '2FA' stand for and why is it important?", opts: ["Two Firewall Access — blocks hackers","Two-Factor Authentication — adds a second verification step","Two-Finger Access — biometric login","Two File Archive — backup system"], ans: 1, exp: "Exactly! 2FA means even if someone steals your password, they still can't login without the second factor (OTP, app code)." },
+    { q: "Your computer suddenly shows a message: 'All your files are encrypted. Pay ₹50,000 in Bitcoin.' This is:", opts: ["A Windows update notification","A Ransomware attack","A normal antivirus warning","A game notification"], ans: 1, exp: "Correct! This is ransomware — malware that encrypts your files and demands payment. Always keep backups to recover without paying!" }
+  ];
+
+  let current = 0, score = 0, answered = false;
+
+  function loadQuestion() {
+    const q = questions[current];
+    document.getElementById('qNum').textContent = `Question ${current+1} of ${questions.length}`;
+    document.getElementById('qText').textContent = q.q;
+    document.getElementById('qFeedback').textContent = '';
+    document.getElementById('qFeedback').style.color = '';
+    document.getElementById('qNext').style.display = 'none';
+    answered = false;
+
+    const opts = document.getElementById('qOptions');
+    opts.innerHTML = '';
+    q.opts.forEach((o, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = o;
+      btn.onclick = () => answer(i);
+      opts.appendChild(btn);
+    });
+    document.getElementById('qScore').textContent = `Score: ${score}/${current}`;
+  }
+
+  function answer(i) {
+    if(answered) return;
+    answered = true;
+    const q = questions[current];
+    const opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    opts[q.ans].classList.add('correct');
+    const fb = document.getElementById('qFeedback');
+    if(i === q.ans) {
+      score++;
+      fb.textContent = '✓ ' + q.exp;
+      fb.style.color = 'var(--green)';
+    } else {
+      opts[i].classList.add('wrong');
+      fb.textContent = '✗ ' + q.exp;
+      fb.style.color = 'var(--red)';
+    }
+    document.getElementById('qScore').textContent = `Score: ${score}/${current+1}`;
+    document.getElementById('qNext').style.display = current < questions.length-1 ? 'inline-block' : 'none';
+    if(current === questions.length-1) {
+      setTimeout(() => {
+        const ratings = ['Keep learning!','Not bad — keep practicing!','Good awareness!','Great job!','Perfect score — Cyber Expert!'];
+        document.getElementById('qFeedback').textContent = `Quiz complete! Final score: ${score}/5 — ${ratings[score]}`;
+        document.getElementById('qFeedback').style.color = score >= 4 ? 'var(--green)' : 'var(--amber)';
+      }, 600);
+    }
+  }
+
+  function nextQuestion() {
+    current++;
+    loadQuestion();
+  }
+
+  loadQuestion();
+</script>
+</body>
+</html>
